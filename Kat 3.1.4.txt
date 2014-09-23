@@ -1,0 +1,79 @@
+Kat Hohbein 3.1.4
+
+//Part 1)
+task main()
+{
+while(1 == 1)
+{
+   if (SensorValue(lightSensor)>700)
+   {
+      turnFlashlightOn(Flashlight, 127);
+   }
+   else
+   {
+      turnFlashlightOff(Flashlight);
+   }
+}
+
+}
+
+//Part 2)
+task main()
+{
+	while (1==1) //repeat indefinitely
+	{
+	   while (SensorValue(limitSwitch)==1) //repeat while limitSwitch pressed
+	   {
+	      if (SensorValue(lightSensor) >1500)  //respond to lightSensor
+	      {
+	      	turnFlashlightOn(Flashlight, 150);
+	      }
+	      else
+	      {
+	      	turnFlashlightOff(Flashlight);     
+	      }
+	   }
+	    turnFlashlightOff(Flashlight); //do this when the limitSwitch is not pressed
+	}
+}
+
+//Part 3)
+task main()
+{
+	clearTimer(T1);
+	while ( time1(T1) < 20000) //Loop for 20 sec
+	{
+		if(SensorValue(Button)==1)
+		{
+	  turnLEDOn(Green);
+	  wait(2);
+	  turnLEDOff(Green);
+	  wait(2);
+		}
+	}
+}
+
+//Part 4)C
+task main()
+{
+
+//Make the servo position itself to the left or right depending 
+//on whether the line follower is covered by your hand. This 
+//behavior will only apply if the button is pressed; if the button
+//is released, the servo is in a middle position, awaiting the button
+//to be pressed again
+	while (2==2) 
+{
+   while (SensorValue(Button)==1) 
+   {
+      if (SensorValue(lineFollow) >2000)  
+      {
+      	setServo(Servo, 120);    
+      }
+      else
+      {
+      setServo(Servo, -120);
+      }
+   }
+   setServo(Servo, 0);
+}
