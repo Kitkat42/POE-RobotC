@@ -2,6 +2,7 @@
 #pragma config(Sensor, in4,    lineSensor,     sensorLineFollower)
 #pragma config(Sensor, in5,    lightSensor,    sensorReflection)
 #pragma config(Sensor, dgtl2,  Sonar,          sensorSONAR_inch)
+#pragma config(Sensor, dgtl5,  button,         sensorNone)
 #pragma config(Motor,  port1,           rightMotor,    tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Motor,  port2,           clawMotor,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           Headlight1,    tmotorVexFlashlight, openLoop, reversed)
@@ -12,35 +13,33 @@
 
 task main()
 {
-	while(true)
+	if (vexRT(Btn8U)==1)
 	{
-		while (vexRT(Btn8L)==0)
-		{
-		while (vexRT(Btn8D)==0)
-		{
-		while (vexRT(Btn8U)==1)
-		{
-			startMotor(rightMotor, 100);
-			startMotor(leftMotor,100);
-			wait(1);
-			stopMotor(rightMotor);
-			stopMotor(leftMotor);
-		}
-		}
-		}
-		while (vexRT(Btn8D)==0)
-		{
-		while (vexRT(Btn8U)==0)
-		{
-		while (vexRT(Btn8L)==1)
-		{
-			startMotor(rightMotor, 100);
-			startMotor(leftMotor,-100);
-			wait(.3);
-			stopMotor(rightMotor);
-			stopMotor(leftMotor);
-		}
-		}
-		}
+		turnFlashlightOn(Headlight2, 127);
+		turnFlashlightOn(Headlight1, 127);
+		untilButtonPress(button);
+		turnFlashlightOn(Headlight1, 50);
+		turnFlashlightOn(Headlight2, 50);
+		startMotor(clawMotor, 30);
+		wait(1);
+		stopMotor(clawMotor);
+		wait(5);
+		startMotor(clawMotor,-30);
+		wait(1);
+		stopMotor(clawMotor);
+		startMotor(armMotor, -40);
+		wait(1.5);
+		stopMotor(armMotor);
+		startMotor(leftMotor,100);
+		wait(1.5);
+		stopMotor(leftMotor);
+		startMotor(rightMotor,100);
+		startMotor(leftMotor,100);
+		wait(5);
+		stopMotor(leftMotor);
+		stopMotor(rightMotor);
+		startMotor(clawMotor, 30);
+		wait(2);
+		stopMotor(clawMotor);
 	}
 }
